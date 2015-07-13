@@ -1,0 +1,20 @@
+#!/bin/bash
+
+rm ~/.bash_profile
+rm ~/.bashrc
+rm ~/.bashaliases
+rm ~/.git_stuff
+rm ~/.vim
+rm ~/.vimrc
+rm ~/.tmux.conf
+rm ~/.git_config
+
+ln -s ~/dots/.bash_profile ~/.bash_profile
+ln -s ~/dots/.bashrc ~/.bashrc
+ln -s ~/dots/.bashaliases ~/.bashaliases
+ln -s ~/dots/.git_stuff ~/.git_stuff
+ln -s ~/dots/.vim ~/.vim
+ln -s ~/dots/.vimrc ~/.vimrc
+ln -s ~/dots/.tmux.conf ~/.tmux.conf
+ln -s ~/dots/.git_config ~/.git_config
+

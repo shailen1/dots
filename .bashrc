@@ -1,117 +1,137 @@
-#!/bin/bash
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-# define all functions in  this file
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-function px { ps -aux | grep "$1" | grep -v "grep" ; }
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
-fr() { cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n $1; }
-gip() { curl -D - http://freegeoip.net/xml/$1; }
-mcd() { mkdir -p "$1" && cd "$1"; }
+# append to the history file, don't overwrite it
+shopt -s histappend
 
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=100000
+HISTFILESIZE=20000
 
-function spy () {
-    lsof -i -P +c 0 +M | grep -i "$1" 
-}
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
-sssh (){ ssh -t "$1" 'tmux attach || tmux new'; }
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
 
-function mn ()
-{
-        man $1 | col -b | grep -i --color=auto $2 | less
-    }
+# make less more friendly for non-text input files, see lesspipe(1)
+#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-function wi() {
-    if [ "${1}" ]; then dig +short "${1}".wp.dg.cx TXT; fi
-}
-
-function tre() {
-
-    SEDMAGIC='s;[^/]*/;|____;g;s;____|; |;g'
-
-    if [ "$#" -gt 0 ] ; then
-       dirlist="$@"
-    else
-       dirlist="."
-    fi
-
-    for x in $dirlist; do
-         find "$x" -print | sed -e "$SEDMAGIC"
-    done
-}
-
-function fe() {
-     if [ "$#" -gt 1 ] ; then
-         gfind . -name "*.erl" "$1" -type f | grep -v "git" | grep -v ".log" | xargs grep -i  --color=auto "$2"
-     else     
-         gfind . -name "*.erl" -type f | grep -v "git" | grep -v ".log" | xargs grep -i  --color=auto "$1"
-     fi
-}
-
-function t() {
-     if [ "$#" -gt 1 ] ; then
-         find "$1" -type f -name "$2"
-     else	     
-         find . -type f -name "$1"
-     fi
-}
-
-
-function g() {
-     find . -type f | xargs grep -in  --color=auto "$1";
-}
-
-function srvd(){
-    python -m SimpleHTTPServer  1024 $1 & 2>&1
-}
-
-function authme() {
-  ssh "$1" 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys' \
-    < ~/.ssh/id_dsa.pub
-}
-
-function parse_git_branch () {
-  if git rev-parse --git-dir >/dev/null 2>&1
-  then
-          gitver=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
-  else
-          return 0
-  fi
-  echo -e $gitver
-}
-
-function branch_color () {
-
-        if git rev-parse --git-dir >/dev/null 2>&1
-        then
-                color=""
-                if git diff --quiet 2>/dev/null >&2 
-                then
-                        color="${c_green}"
-                else
-                        #color="\xE2\x98\xA0${c_red}"
-                        color="${c_yellow}"
-                fi
-        else
-                return 0
-        fi
-        echo -ne $color
-}
-function k()
-{
-  if [ "$TERM" = "linux" ]
-then
-        #we're on the system console or maybe telnetting in
-        export PS1="\[\e[32;1m\]\u@\H > \[\e[0m\]"
-else
-        #we're not on the console, assume an xterm
-        export PS1="\[\e]2;\u@\H \w\a\e[32;1m\]>\[\e[0m\] " 
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
 fi
-}
-IBlack="\[\033[0;37m\]" ;      # Black
-Color_Off="\[\033[m\]" ;
 
-#export PS1=$IBlack'[\T on \d]'$ColorOff' (\u) [\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] on \H\n@ ${c_green}${c_blue}\w${c_sgr0}:\n=> \[\e]2;$(history 1 | sed "s/^[ ]*[0-9]*[ ]*//g") \w\a\e[32;1m\]\[\e[0m\] '
-export PS1=$IBlack'[\T]'$ColorOff' (\u) [\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] on \H\n@ ${c_green}\]${c_blue}\w${c_sgr0}:\n=> \[\e]2; \w\a\e[32;1m\]\[\e[0m\] '
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
 
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+#force_color_prompt=yes
 
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
 
+if [ "$color_prompt" = yes ]; then
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\[\033[00m\]\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    #alias grep='grep --color=auto'
+    #alias fgrep='fgrep --color=auto'
+    #alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+#alias ll='ls -l'
+#alias la='ls -A'
+#alias l='ls -CF'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+source ~/.bashrc
+source ~/.bashaliases
+source ~/.git_stuff
+
+alias a='vi ~/.bashrc;. ~/.bashrc;echo "Sourced ~/.bashrc"'
+
+export DISPLAY=localhost:0.0
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export PATH=/Users/skarur/bin:/home/ejdnew/bin/erlang:$PATH
+#export PATH=$PATH
+
+export XAUTHORITY=/home/ejdnew/.Xauthority
+[ -z "$TMUX" ] && export TERM=xterm-256color
+#trap 'echo -ne "\033]0;${PWD##*/} ${BASH_COMMAND}\007"' DEBUG
+
+##
+# Your previous /Users/skarur/.bash_profile file was backed up as /Users/skarur/.bash_profile.macports-saved_2015-05-04_at_15:10:27
+##
+
+# MacPorts Installer addition on 2015-05-04_at_15:10:27: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+export MANPATH=/usr/local/opt/erlang/lib/erlang/man:$MANPATH
