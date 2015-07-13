@@ -1,0 +1,49 @@
+#!/bin/bash
+# .git_stuff
+#alias git=hub
+
+#git config --global web.browser ch
+#git config --global browser.ch.cmd "open -a \"/Applications/Google Chrome.app\""
+git config --global alias.gol "log --graph --pretty=format: '%C(bold blue)%h%Creset %C(bold green)<%an>%Creset%Cgreen (%cr)%Creset%C(yellow)%d%Creset%C(red)%s ' --abbrev-commit --date=relative"
+#git config --global color.ui true
+#git config color.diff auto
+#alias g='git '
+alias k='gitk --all & '
+alias ga='git add '
+alias gps='git push '
+alias gl='git log '
+alias gl="git log --pretty=format: '%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset ' --abbrev-commit"
+alias lg='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" '
+alias gll='git config --global alias.lol "log --graph --color --decorate --oneline" '
+alias glx='git diff-tree --no-commit-id --name-only -r  $1  '
+alias gls='git ls-tree --name-only -r  $1 '
+alias gsf='git show $1:$2 '
+alias gs='git status '
+alias gd='git diff '
+alias gm='git commit'
+alias gma='git commit -am '
+alias gb='git branch '
+alias gc='git checkout '
+alias gra='git remote add '
+alias gpl='git pull '
+alias gcl='git clone '
+alias gits='git rev-list --all | xargs git grep -F '
+alias github="chrome \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed  's/git:/http:/g '\`"
+
+#source ~/.git_completion.sh
+#if [ -f ~/.git_completion.bash ]; then
+#      source ~/.git_completion.bash
+#fi
+complete -o default -o nospace -F _git_branch gb
+complete -o default -o nospace -F _git_checkout gc
+
+c_cyan=`tput setaf 6`
+c_red=`tput setaf 1`
+c_green=`tput setaf 2`
+c_yellow=`tput setaf 3`
+c_sgr0=`tput sgr0`
+
+#alias gt="'git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate) %(authorname) %(refname:short)'"
+
+alias glist='for ref in $(git for-each-ref --sort=-committerdate --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
+alias gtlist="git log --pretty='%H' $1 | xargs -n1 git describe --tags --exact-match 2>/dev/null"
