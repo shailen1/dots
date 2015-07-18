@@ -27,7 +27,9 @@ alias file='/usr/bin/file'
 alias flushd="dscacheutil -flushcache"
 alias grep='grep --color=auto'
 alias h='history'
-alias ip='curl ip.appspot.com'
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+#alias ip='curl ip.appspot.com'
 alias ipext='curl ifconfig.me'
 alias jpp="python -mjson.tool"
 alias l='ls -latrhFG'

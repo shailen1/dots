@@ -112,6 +112,6 @@ Color_Off="\[\033[m\]" ;
 
 #export PS1=$IBlack'[\T on \d]'$ColorOff' (\u) [\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] on \H\n@ ${c_green}${c_blue}\w${c_sgr0}:\n=> \[\e]2;$(history 1 | sed "s/^[ ]*[0-9]*[ ]*//g") \w\a\e[32;1m\]\[\e[0m\] '
 export PS1=$IBlack'[\T]'$ColorOff' (\u) [\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] on \H\n@ ${c_green}\]${c_blue}\w${c_sgr0}:\n=> \[\e]2; \w\a\e[32;1m\]\[\e[0m\] '
-
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 
 
