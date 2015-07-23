@@ -1,13 +1,13 @@
 #!/bin/bash
 
-rm ~/.bash_profile
-rm ~/.bashrc
-rm ~/.bashaliases
-rm ~/.git_stuff
-rm ~/.vim
-rm ~/.vimrc
-rm ~/.tmux.conf
-rm ~/.git_config
+mv ~/.bash_profile ~/.bash_profile.bak
+mv ~/.bashrc ~/.bashrc.bak
+mv ~/.bashaliases ~/.bashaliases.bak
+mv ~/.git_stuff ~/.git_stuff.bak
+mv ~/.vim ~/.vim.bak
+mv ~/.vimrc ~/.vimrc.bak
+mv ~/.tmux.conf ~/.tmux.conf.bak
+mv ~/.gitconfig ~/.gitconfig.bak
 
 ln -s ~/dots/.bash_profile ~/.bash_profile
 ln -s ~/dots/.bashrc ~/.bashrc
@@ -16,5 +16,5 @@ ln -s ~/dots/.git_stuff ~/.git_stuff
 ln -s ~/dots/.vim ~/.vim
 ln -s ~/dots/.vimrc ~/.vimrc
 ln -s ~/dots/.tmux.conf ~/.tmux.conf
-ln -s ~/dots/.git_config ~/.git_config
+ln -s ~/dots/.gitconfig ~/.gitconfig
 
