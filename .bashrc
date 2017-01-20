@@ -140,3 +140,41 @@ export XAUTHORITY=/home/ejdnew/.Xauthority
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 export MANPATH=/usr/local/opt/erlang/lib/erlang/man:$MANPATH
+
+PATH=/home/shailen/bin:/home/shailen/bin/erlang:/opt/local/bin:/opt/local/sbin:$PATH
+
+PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: '!x[$0]++' | sed "s/\(.*\).\{1\}/\1/")
+
+export PATH
+
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+"$PATH:"}"
+    fi
+}
+
+#pathadd "/home/shailen/bin"
+
+[ -z "$TMUX" ] && export TERM=xterm-256color
+#trap 'echo -ne "\033]0;${PWD##*/} ${BASH_COMMAND}\007"' DEBUG
+#Mac only!
+
+##
+# Your previous /Users/skarur/.bash_profile file was backed up as /Users/skarur/.bash_profile.macports-saved_2015-05-04_at_15:10:27
+##
+
+export PYTHONPATH=/usr/local/bin
+# MacPorts Installer addition on 2015-05-04_at_15:10:27: adding an appropriate PATH variable for use with MacPorts.
+# Finished adapting your PATH environment variable for use with MacPorts.
+export MANPATH=/usr/local/opt/erlang/lib/erlang/man:$MANPATH
+#xhost +
+## -------------------------------------------
+
+if [ -f /etc/bash_completion.d/docker-swarm ]; then
+    source /etc/bash_completion.d/docker-swarm
+fi
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
