@@ -1,20 +1,21 @@
 #!/bin/bash
 
-mv ~/.bash_profile ~/.bash_profile.bak
-mv ~/.bashrc ~/.bashrc.bak
-mv ~/.bashaliases ~/.bashaliases.bak
-mv ~/.git_stuff ~/.git_stuff.bak
-mv ~/.vim ~/.vim.bak
-mv ~/.vimrc ~/.vimrc.bak
-mv ~/.tmux.conf ~/.tmux.conf.bak
-mv ~/.gitconfig ~/.gitconfig.bak
+mkdir -p ~/.dots.bak
+mv ~/.bash_profile ~/.dots.bak/.bash_profile
+mv ~/.bashrc ~/.dots.bak/.bashrc
+mv ~/.bashaliases ~/.dots.bak/.bashaliases
+mv ~/.git_stuff ~/.dots.bak/.git_stuff
+mv ~/.vim ~/.dots.bak/.vim
+mv ~/.vimrc ~/.dots.bak/.vimrc
+mv ~/.tmux.conf ~/.dots.bak/.tmux.conf
+mv ~/.gitconfig ~/.dots.bak/.gitconfig
 
-ln -s ~/dots/.bash_profile ~/.bash_profile
-ln -s ~/dots/.bashrc ~/.bashrc
-ln -s ~/dots/.bashaliases ~/.bashaliases
-ln -s ~/dots/.git_stuff ~/.git_stuff
-ln -s ~/dots/.vim ~/.vim
-ln -s ~/dots/.vimrc ~/.vimrc
-ln -s ~/dots/.tmux.conf ~/.tmux.conf
-ln -s ~/dots/.gitconfig ~/.gitconfig
+ln -s ~/sandbox/dots/.bash_profile ~/.bash_profile
+ln -s ~/sandbox/dots/.bashrc ~/.bashrc
+ln -s ~/sandbox/dots/.bashaliases ~/.bashaliases
+ln -s ~/sandbox/dots/.git_stuff ~/.git_stuff
+ln -s ~/sandbox/dots/.vim ~/.vim
+ln -s ~/sandbox/dots/.vimrc ~/.vimrc
+ln -s ~/sandbox/dots/.tmux.conf ~/.tmux.conf
+ln -s ~/sandbox/dots/.gitconfig ~/.gitconfig
 
