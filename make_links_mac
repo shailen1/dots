@@ -1,0 +1,26 @@
+#!/bin/bash
+# Mac
+
+mkdir -p ~/.dots.bak
+mv ~/.bash_profile ~/.dots.bak/.bash_profile_mac
+mv ~/.bashrc ~/.dots.bak/.bashrc_mac
+mv ~/.bash_aliases ~/.dots.bak/.bash_aliases
+mv ~/.git_stuff ~/.dots.bak/.git_stuff
+mv ~/.vim ~/.dots.bak/.vim
+mv ~/.vimrc ~/.dots.bak/.vimrc
+mv ~/.tmux.conf ~/.dots.bak/.tmux.conf
+mv ~/.gitconfigu1 ~/.dots.bak/.gitconfigu1
+mv ~/.gitconfigu2 ~/.dots.bak/.gitconfigu2
+mv ~/.netrc ~/.dots.bak/.netrc
+
+ln -s ~/dev/dots/.bash_profile_mac ~/.bash_profile
+ln -s ~/dev/dots/.bashrc_mac ~/.bashrc
+ln -s ~/dev/dots/.bash_aliases ~/.bash_aliases
+ln -s ~/dev/dots/.git_stuff ~/.git_stuff
+ln -s ~/dev/dots/.vim ~/.vim
+ln -s ~/dev/dots/.vimrc ~/.vimrc
+ln -s ~/dev/dots/.tmux.conf ~/.tmux.conf
+ln -s ~/dev/dots/.gitconfigu1 ~/.gitconfigu1
+ln -s ~/dev/dots/.gitconfigu2 ~/.gitconfigu2
+ln -s ~/dev/.netrc ~/.netrc
+

@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bash_profile: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -93,8 +93,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-if [ -f ~/.bash_profile ]; then
-    . ~/.bash_profile
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
 fi
 
 if [ -f ~/.git_stuff ]; then
@@ -116,21 +116,21 @@ export DISPLAY=localhost:0.0
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-export XAUTHORITY=/home/shailen/.Xauthority
+export XAUTHORITY=/Users/shailen/.Xauthority
 [ -z "$TMUX" ] && export TERM=xterm-256color
 #trap 'echo -ne "\033]0;${PWD##*/} ${BASH_COMMAND}\007"' DEBUG
 #Mac only!
 
 
-PATH=/home/shailen/bin:/home/shailen/bin/erlang:/opt/local/bin:/opt/local/sbin:$PATH
+PATH=/Users/shailen/bin:/Users/shailen/bin/erlang:/opt/local/bin:/opt/local/sbin:$PATH
 
 PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: '!x[$0]++' | sed "s/\(.*\).\{1\}/\1/")
 
 export PATH
 
 [ -z "$TMUX" ] && export TERM=xterm-256color
-#trap 'echo -ne "\033]0;${PWD##*/} ${BASH_COMMAND}\007"' DEBUG
 #Mac only!
+trap 'echo -ne "\033]0;${PWD##*/} ${BASH_COMMAND}\007"' DEBUG
 
 
 export PYTHONPATH=/usr/local/bin

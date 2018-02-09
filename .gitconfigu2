@@ -1,0 +1,7 @@
+[alias]
+	gol = log --graph --pretty=format: '%C(bold blue)%h%Creset %C(bold green)<%an>%Creset%Cgreen (%cr)%Creset%C(yellow)%d%Creset%C(red)%s ' --abbrev-commit --date=relative
+[push]
+	default = matching
+[user]
+	name = ombuds sattva
+	email = ombuds.sattva@gmail.com

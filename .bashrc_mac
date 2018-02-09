@@ -1,4 +1,5 @@
 #!/bin/bash
+#.bashrc
 
 IBlack="\[\033[0;37m\]" ;      # Black
 Color_Off="\[\033[m\]" ;

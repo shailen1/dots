@@ -1,0 +1,26 @@
+#!/bin/bash
+# Linux
+
+mkdir -p ~/.dots.bak
+cp ~/.bash_profile_linux ~/.dots.bak/.bash_profile_linux
+cp ~/.bashrc_linux ~/.dots.bak/.bashrc_linux
+cp ~/.bash_aliases ~/.dots.bak/.bash_aliases
+cp ~/.git_stuff ~/.dots.bak/.git_stuff
+cp ~/.vim ~/.dots.bak/.vim
+cp ~/.vimrc ~/.dots.bak/.vimrc
+cp ~/.tmux.conf ~/.dots.bak/.tmux.conf
+cp ~/.gitconfigu1 ~/.dots.bak/.gitconfigu1
+cp ~/.gitconfigu2 ~/.dots.bak/.gitconfigu2
+cp ~/.netrc ~/.dots.bak/.netrc
+
+ln -s ~/dev/dots/.bash_profile_linux ~/.bash_profile
+ln -s ~/dev/dots/.bashrc_linux ~/.bashrc
+ln -s ~/dev/dots/.bash_aliases ~/.bash_aliases
+ln -s ~/dev/dots/.git_stuff ~/.git_stuff
+ln -s ~/dev/dots/.vim ~/.vim
+ln -s ~/dev/dots/.vimrc ~/.vimrc
+ln -s ~/dev/dots/.tmux.conf ~/.tmux.conf
+ln -s ~/dev/dots/.gitconfigu1 ~/.gitconfigu1
+ln -s ~/dev/dots/.gitconfigu2 ~/.gitconfigu2
+ln -s ~/dev/.netrc ~/.netrc
+
